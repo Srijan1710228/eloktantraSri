@@ -59,16 +59,10 @@ const Navbar = () => {
 
           <div className="hidden sm:flex items-center space-x-4">
             <Link
-              href="/login"
-              className="text-sm font-medium text-gray-400 hover:text-white transition-colors"
+              href="/vote"
+              className="px-8 py-3 rounded-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white text-base font-black transition-all shadow-xl shadow-red-500/20 active:scale-95 animate-pulse uppercase tracking-wider"
             >
-              Login
-            </Link>
-            <Link
-              href="/register"
-              className="px-5 py-2 rounded-full bg-primary hover:bg-accent text-white text-sm font-semibold transition-all shadow-lg shadow-primary/20"
-            >
-              Register
+              VOTE
             </Link>
           </div>
 
@@ -104,18 +98,13 @@ const Navbar = () => {
             </Link>
           ))}
           
-          <div className="pt-8 border-t border-white/5 flex flex-col space-y-4 sm:hidden">
-            <Link
-              href="/login"
-              className="text-lg font-black uppercase tracking-widest text-gray-400"
+          <div className="pt-8 border-t border-white/5 flex flex-col space-y-4">
+             <Link
+              href="/vote"
+              onClick={() => setIsMenuOpen(false)}
+              className="w-full py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white text-center font-black uppercase tracking-widest rounded-xl shadow-lg shadow-red-500/10"
             >
-              Login
-            </Link>
-            <Link
-              href="/register"
-              className="w-full py-4 bg-primary text-white text-center font-black uppercase tracking-widest rounded-xl"
-            >
-              Register
+              VOTE NOW
             </Link>
           </div>
         </div>
