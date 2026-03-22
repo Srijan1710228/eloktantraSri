@@ -9,6 +9,8 @@ dotenv.config();
 
 const authController = require('./controllers/authController');
 const voteController = require('./controllers/voteController');
+const candidateRoutes = require('./routes/candidateRoutes');
+const electionRoutes = require('./routes/electionRoutes');
 
 const app = express();
 app.use(express.json());
@@ -40,6 +42,8 @@ app.get('/auth/digilocker/callback', authController.digilockerCallback);
 app.post('/verify-face', authController.faceVerify);
 app.post('/risk/evaluate', voteController.evaluateRisk);
 app.post('/generate-token', voteController.generateVotingToken);
+app.use('/candidates', candidateRoutes);
+app.use('/elections', electionRoutes);
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
