@@ -33,13 +33,16 @@ export default function DashboardPage() {
     const fetchDashboardData = async () => {
       try {
         const [cRes, pRes, coRes, eRes] = await Promise.all([
-          adminGetCandidates({}),
-          adminGetParties(), // Unified party management
-          adminGetConstituencies(),
-          adminGetActiveElection(),
+          contentAPI.get('/api/candidates'),
+          contentAPI.get('/api/admin/party'), 
+          contentAPI.get('/api/admin/constituency'),
+          contentAPI.get('/admin/election/active'),
         ]);
 
-        const activeElection = eRes.data.data || eRes.data || { title: 'None Found', id: null };
+        const cList = Array.isArray(cRes.data) ? cRes.data : (cRes.data.data || cRes.data.candidates || []);
+        const pList = Array.isArray(pRes.data) ? pRes.data : (pRes.data.data || []);
+        const coList = Array.isArray(coRes.data) ? coRes.data : (coRes.data.data || coRes.data.constituencies || []);
+        const activeElection = eRes.data || { title: 'None Found', id: null };
         
         let voteCount = 0;
         const electionId = activeElection._id || activeElection.id;
@@ -53,10 +56,10 @@ export default function DashboardPage() {
         }
 
         setStats({
-          candidates: cRes.data.data?.length || cRes.data.candidates?.length || 0,
-          parties: pRes.data.data?.length || 0,
-          constituencies: coRes.data.data?.length || coRes.data.constituencies?.length || 0,
-          activeElection: activeElection.title || 'None',
+          candidates: cList.length,
+          parties: pList.length,
+          constituencies: coList.length,
+          activeElection: activeElection.name || activeElection.title || 'None',
           totalVotes: voteCount,
           pendingSync: 0,
         });
